@@ -28,13 +28,13 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-03"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>A policy record stores information about a policy. Incorrect records can mislead people. A missing premium must not be silently treated as zero, and a missing name must not be guessed. Flagging records for review is safer than claiming they are correct.</p>
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>A policy record stores information about a policy. Incorrect records can mislead people. A missing premium must not be silently treated as zero, and a missing name must not be guessed. Flagging records for review is safer than claiming they are correct. This dataset expects strictly positive monthly payments; that classroom rule does not mean every real policy requires a monthly payment.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-04"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>CSV is a plain-text table. pandas represents it as a DataFrame. <code>pd.to_numeric(..., errors="coerce")</code> converts numeric text and marks invalid text as missing. <code>.isna()</code> detects missing values. <code>&amp;</code> combines column conditions; surround each comparison with parentheses. <code>.loc</code> selects rows.</p>
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>CSV is a plain-text table. pandas represents it as a DataFrame. <code>pd.to_numeric(..., errors="coerce")</code> converts numeric text and marks invalid text as missing. <code>.notna()</code> detects values that are not missing. <code>.fillna("")</code> replaces missing names with empty text for checking, not guessed names. <code>~valid</code> reverses the True/False selection. <code>&amp;</code> combines column conditions; surround each comparison with parentheses. <code>.loc</code> selects rows.</p>
 </div>
 </div>
 </div>
@@ -97,7 +97,7 @@
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-09"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>Use accepted["monthly_premium"].sum() and len(review). Passing this check does not verify a real policy.</p>
-<p><strong>Common error:</strong> FileNotFoundError means the data path is wrong. Start Jupyter from the project root and keep the data folder beside notebooks.</p>
+<p><strong>Common error:</strong> If loading fails, check the local data folder first. Without local data, the notebook needs an Internet connection to fetch the public GitHub CSV.</p>
 </div>
 </div>
 </div>

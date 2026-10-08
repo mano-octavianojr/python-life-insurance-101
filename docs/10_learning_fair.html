@@ -34,7 +34,7 @@
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-04"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>Functions can call other functions. <code>float()</code> converts numeric text; reject nonfinite values such as nan and infinity using math.isfinite. Raise a clear error for invalid input. In this notebook, editable variables stand in for visitor input so Run All never waits for typing. <code>.lower()</code> and <code>.strip()</code> normalize quiz answers.</p>
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>Functions can call other functions. <code>float()</code> converts numeric text; reject nonfinite values such as nan and infinity using math.isfinite. Raise a clear error for invalid input. In this notebook, editable variables stand in for visitor input so Run All never waits for typing. <code>.lower()</code> and <code>.strip()</code> normalize quiz answers. <code>isinstance</code> checks a value’s type; <code>zip</code> pairs each question with an answer; <code>int(True)</code> is 1 and <code>int(False)</code> is 0, which lets us count correct answers.</p>
 </div>
 </div>
 </div>
@@ -66,7 +66,7 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">find_policies</span><span class="p">(</span><span class="n">budget_text</span><span class="p">,</span> <span class="n">minimum_coverage</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">budget</span> <span class="o">=</span> <span class="n">parse_budget</span><span class="p">(</span><span class="n">budget_text</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">minimum_coverage</span><span class="p">)</span> <span class="ow">or</span> <span class="n">minimum_coverage</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">minimum_coverage</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">minimum_coverage</span><span class="p">)</span> <span class="ow">or</span> <span class="n">minimum_coverage</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Minimum coverage must be finite and nonnegative"</span><span class="p">)</span>
     <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
@@ -92,6 +92,8 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Provide one answer for each question"</span><span class="p">)</span>
     <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">question</span><span class="p">,</span> <span class="n">answer</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">quiz</span><span class="p">,</span> <span class="n">answers</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Quiz answers must be text"</span><span class="p">)</span>
         <span class="n">correct</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">question</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">]</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="s2">"question"</span><span class="p">],</span> <span class="s2">"Correct"</span> <span class="k">if</span> <span class="n">correct</span> <span class="k">else</span> <span class="s2">"Review: "</span> <span class="o">+</span> <span class="n">question</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
         <span class="n">score</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">correct</span><span class="p">)</span>
@@ -175,6 +177,21 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"Invalid input was accepted"</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">policies</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">policies</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"term"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">42000</span>
+<span class="c1"># Check invalid coverage requests and quiz entries as well as budgets.</span>
+<span class="k">for</span> <span class="n">bad</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"nan"</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">find_policies</span><span class="p">(</span><span class="s2">"600"</span><span class="p">,</span> <span class="n">minimum_coverage</span><span class="o">=</span><span class="n">bad</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"Invalid coverage request was accepted"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">answers</span> <span class="ow">in</span> <span class="p">[[</span><span class="s2">"premium"</span><span class="p">],</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s2">"beneficiary"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">]]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">grade_quiz</span><span class="p">(</span><span class="n">answers</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"Invalid quiz answers were accepted"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
