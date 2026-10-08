@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>10. Maya’s Insurance Learning Fair · Python Life Insurance 101</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a><header><a class="brand" href="index.html">Python Life Insurance 101</a><a href="https://github.com/mano-octavianojr/python-life-insurance-101">GitHub ↗</a></header><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="09_charts.html">Previous lesson</a></nav><main id="content" class="lesson"><aside class="reader-note">Read the lesson here. To run or edit Python, <a href="notebooks/10_learning_fair.ipynb" download>download this notebook</a> and use Jupyter. Lesson 08 also uses <a href="data/policy_records.csv" download>the sample CSV</a>; keep it in a data folder beside notebooks. <a href="index.html#setup">Setup instructions</a>.</aside><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-00"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="10.-Maya’s-Insurance-Learning-Fair">10. Maya’s Insurance Learning Fair<a class="anchor-link" href="#10.-Maya%E2%80%99s-Insurance-Learning-Fair">¶</a></h1><p><strong>Suggested time:</strong> 45–60 minutes. Work through lessons in order; each notebook includes its own runnable examples.</p>
+<p>All people, policies, prices, and records are fictional. Amounts use Philippine pesos (₱ / PHP). This is a coding lesson, not financial advice. Real coverage and claims depend on policy terms and applicable law. Never enter personal financial or health information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-opening">Story opening<a class="anchor-link" href="#Story-opening">¶</a></h2><p>Maya and Leo bring their policy explorer to the school fair. A visitor supplies a fictional budget. The program lists matches, explains payment totals, and checks understanding with a short quiz.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-goals">Learning goals<a class="anchor-link" href="#Learning-goals">¶</a></h2><p>Combine functions, policy records, input validation, and assertions in a small project.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-03"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>Review: premiums are payments; beneficiaries are chosen recipients; term insurance covers a set period; coverage amount describes a benefit for a covered death. A budget match is not approval, eligibility, or a recommendation. All displayed policies are fictional.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>Functions can call other functions. <code>float()</code> converts numeric text; reject nonfinite values such as nan and infinity using math.isfinite. Raise a clear error for invalid input. In this notebook, editable variables stand in for visitor input so Run All never waits for typing. <code>.lower()</code> and <code>.strip()</code> normalize quiz answers.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict,-then-run">Predict, then run<a class="anchor-link" href="#Predict,-then-run">¶</a></h2><p>For budget text "400", which policies appear? What should happen for "-1" or "hello"?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_demo" id="cell-id=lesson-10-cell-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="n">policies</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Oak"</span><span class="p">,</span> <span class="s2">"monthly"</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> <span class="s2">"coverage"</span><span class="p">:</span> <span class="mi">300000</span><span class="p">,</span> <span class="s2">"term"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"River"</span><span class="p">,</span> <span class="s2">"monthly"</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span> <span class="s2">"coverage"</span><span class="p">:</span> <span class="mi">500000</span><span class="p">,</span> <span class="s2">"term"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Sky"</span><span class="p">,</span> <span class="s2">"monthly"</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span> <span class="s2">"coverage"</span><span class="p">:</span> <span class="mi">800000</span><span class="p">,</span> <span class="s2">"term"</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_budget</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Enter a number, such as 400"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="ow">or</span> <span class="n">amount</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Budget must be a finite, nonnegative number"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">amount</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">find_policies</span><span class="p">(</span><span class="n">budget_text</span><span class="p">,</span> <span class="n">minimum_coverage</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">budget</span> <span class="o">=</span> <span class="n">parse_budget</span><span class="p">(</span><span class="n">budget_text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">minimum_coverage</span><span class="p">)</span> <span class="ow">or</span> <span class="n">minimum_coverage</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Minimum coverage must be finite and nonnegative"</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">budget</span> <span class="ow">and</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"coverage"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">minimum_coverage</span><span class="p">:</span>
+            <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">matches</span>
+
+<span class="n">visitor_budget</span> <span class="o">=</span> <span class="s2">"400"</span>  <span class="c1"># Edit this fictional input; no personal data needed.</span>
+<span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">find_policies</span><span class="p">(</span><span class="n">visitor_budget</span><span class="p">):</span>
+    <span class="n">annual</span> <span class="o">=</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span>
+    <span class="n">full_term</span> <span class="o">=</span> <span class="n">annual</span> <span class="o">*</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"term"</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">policy</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">: annual premiums ₱</span><span class="si">{</span><span class="n">annual</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">, full-term premiums ₱</span><span class="si">{</span><span class="n">full_term</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">, covered-death benefit ₱</span><span class="si">{</span><span class="n">policy</span><span class="p">[</span><span class="s1">'coverage'</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Totals assume fixed premiums and every scheduled payment; not a policy recommendation."</span><span class="p">)</span>
+
+<span class="n">quiz</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"question"</span><span class="p">:</span> <span class="s2">"What is an insurance payment called?"</span><span class="p">,</span> <span class="s2">"answer"</span><span class="p">:</span> <span class="s2">"premium"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Who is chosen to receive the benefit?"</span><span class="p">,</span> <span class="s2">"answer"</span><span class="p">:</span> <span class="s2">"beneficiary"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Does a budget match guarantee eligibility? yes/no"</span><span class="p">,</span> <span class="s2">"answer"</span><span class="p">:</span> <span class="s2">"no"</span><span class="p">},</span>
+<span class="p">]</span>
+<span class="n">visitor_answers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"premium"</span><span class="p">,</span> <span class="s2">"beneficiary"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">]</span>  <span class="c1"># Change to try the quiz.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grade_quiz</span><span class="p">(</span><span class="n">answers</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">answers</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">quiz</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Provide one answer for each question"</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">question</span><span class="p">,</span> <span class="n">answer</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">quiz</span><span class="p">,</span> <span class="n">answers</span><span class="p">):</span>
+        <span class="n">correct</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">question</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="s2">"question"</span><span class="p">],</span> <span class="s2">"Correct"</span> <span class="k">if</span> <span class="n">correct</span> <span class="k">else</span> <span class="s2">"Review: "</span> <span class="o">+</span> <span class="n">question</span><span class="p">[</span><span class="s2">"answer"</span><span class="p">])</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">correct</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Quiz score:"</span><span class="p">,</span> <span class="n">grade_quiz</span><span class="p">(</span><span class="n">visitor_answers</span><span class="p">),</span> <span class="s2">"/"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">quiz</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Your-turn">Your turn<a class="anchor-link" href="#Your-turn">¶</a></h2><p>Add a minimum coverage request of ₱500,000 to the ₱600 budget search. Handle invalid budgets, show a message for zero matches, and try one incorrect quiz answer. Explain why a coverage filter still cannot recommend a policy.</p>
+<p>Try your answer in the cell below before reading the sample solution.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_exercise" id="cell-id=lesson-10-cell-08">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Student workspace: replace this comment with your attempt.</span>
+<span class="c1"># This empty workspace is safe to run.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-09"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>find_policies already accepts a minimum_coverage argument. Use try/except ValueError and check whether a returned list is empty.</p>
+<p><strong>Common error:</strong> ValueError is expected for invalid visitor input. Handle it rather than removing the validation.</p>
+</div>
+</div>
+</div>
+<details class="solution"><summary>Reveal sample solution</summary><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-10"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sample-solution">Sample solution<a class="anchor-link" href="#Sample-solution">¶</a></h2><p>Compare with your attempt after trying the challenge. There may be more than one correct approach.</p>
+</div>
+</div>
+</div><div class="cell border-box-sizing code_cell rendered celltag_solution" id="cell-id=lesson-10-cell-11">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">filtered</span> <span class="o">=</span> <span class="n">find_policies</span><span class="p">(</span><span class="s2">"600"</span><span class="p">,</span> <span class="n">minimum_coverage</span><span class="o">=</span><span class="mi">500000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"With coverage filter:"</span><span class="p">,</span> <span class="p">[</span><span class="n">policy</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">filtered</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">invalid</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"-1"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"nan"</span><span class="p">,</span> <span class="s2">"inf"</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">find_policies</span><span class="p">(</span><span class="n">invalid</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Expected input error:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">find_policies</span><span class="p">(</span><span class="s2">"0"</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"No fictional policies match this budget."</span><span class="p">)</span>
+<span class="n">practice_score</span> <span class="o">=</span> <span class="n">grade_quiz</span><span class="p">([</span><span class="s2">"premium"</span><span class="p">,</span> <span class="s2">"insured person"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Practice score:"</span><span class="p">,</span> <span class="n">practice_score</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></details>
+
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-12"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-your-results">Check your results<a class="anchor-link" href="#Check-your-results">¶</a></h2><p><code>assert</code> checks a condition. If it is false, Python raises AssertionError. These checks verify the supplied demos and sample solutions. If you intentionally change their inputs, update the expected results too.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_validation" id="cell-id=lesson-10-cell-13">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">assert</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">find_policies</span><span class="p">(</span><span class="s2">"400"</span><span class="p">)]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Oak"</span><span class="p">,</span> <span class="s2">"River"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">filtered</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"River"</span><span class="p">,</span> <span class="s2">"Sky"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">find_policies</span><span class="p">(</span><span class="s2">"0"</span><span class="p">)</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">and</span> <span class="n">practice_score</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">assert</span> <span class="n">grade_quiz</span><span class="p">([</span><span class="s2">" PREMIUM "</span><span class="p">,</span> <span class="s2">"beneficiary"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">])</span> <span class="o">==</span> <span class="mi">3</span>
+<span class="k">for</span> <span class="n">bad</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"-1"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"nan"</span><span class="p">,</span> <span class="s2">"inf"</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">parse_budget</span><span class="p">(</span><span class="n">bad</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">"Invalid input was accepted"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">policies</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">policies</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"term"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">42000</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-14"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>At the fair, Maya demonstrates code that handles mistakes kindly. Leo explains what the tool can calculate and what it cannot decide. They have moved from printing a message to building a small educational project.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-15"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exit-ticket">Exit ticket<a class="anchor-link" href="#Exit-ticket">¶</a></h2><p>Coding: Which tests exercise invalid inputs? Insurance: Name two policy details the explorer does not assess.</p>
+<p>Write your answers in your own words in a new Markdown cell.</p>
+</div>
+</div>
+</div>
+</main><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="09_charts.html">Previous lesson</a></nav><footer>Fictional examples for learning. Real insurance depends on policy terms and applicable law.</footer></body></html>

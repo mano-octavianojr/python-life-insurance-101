@@ -1,0 +1,7 @@
+policy_id,name,monthly_premium
+P001,Ana,350
+P002,,400
+P003,Ben,-50
+P004,Cora,unknown
+P005,Dan,
+P006,Eli,600

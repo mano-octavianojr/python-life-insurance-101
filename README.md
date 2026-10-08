@@ -2,6 +2,33 @@
 
 Ten story-based Jupyter lessons for high school students learning Python from scratch. Follow Maya and Leo from their first printed message to an educational policy explorer. Insurance terms are explained in everyday language, using fictional people, policies, prices, and data.
 
+## Read the training online
+
+The training website contains all ten lessons, code examples, exercises, hints, and expandable sample solutions. It works on phones and desktops. Download notebooks to run the code in Jupyter; the website itself is a reading companion.
+
+The website files are in [docs/](docs/index.html). To preview locally from the project folder:
+
+```bash
+python3 -m http.server 8000 --directory docs
+```
+
+Open `http://localhost:8000` in your browser.
+
+### Publish with GitHub Pages
+
+In this repository, open **Settings → Pages**. Under **Build and deployment**, select **Deploy from a branch**, choose **main** and **/docs**, then save. GitHub will provide the website address after deployment. The expected address is `https://mano-octavianojr.github.io/python-life-insurance-101/`; availability depends on Pages being enabled and deployment completing.
+
+### Update the website
+
+The notebooks are the source of the lesson content. After editing them, activate your Python environment and run:
+
+```bash
+python scripts/build_site.py
+python scripts/validate_site.py
+```
+
+Commit the updated files in `docs/` together with the notebooks. Website generation requires the dependencies in `requirements.txt`.
+
 ## Get started
 
 Use Python 3.10 or newer (validated with Python 3.12). From the project directory:

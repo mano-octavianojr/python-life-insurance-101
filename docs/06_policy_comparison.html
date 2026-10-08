@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>06. The Policy Comparison Club · Python Life Insurance 101</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a><header><a class="brand" href="index.html">Python Life Insurance 101</a><a href="https://github.com/mano-octavianojr/python-life-insurance-101">GitHub ↗</a></header><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="05_budget.html">Previous lesson</a><a href="07_functions.html">Next lesson →</a></nav><main id="content" class="lesson"><aside class="reader-note">Read the lesson here. To run or edit Python, <a href="notebooks/06_policy_comparison.ipynb" download>download this notebook</a> and use Jupyter. Lesson 08 also uses <a href="data/policy_records.csv" download>the sample CSV</a>; keep it in a data folder beside notebooks. <a href="index.html#setup">Setup instructions</a>.</aside><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-00"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="06.-The-Policy-Comparison-Club">06. The Policy Comparison Club<a class="anchor-link" href="#06.-The-Policy-Comparison-Club">¶</a></h1><p><strong>Suggested time:</strong> 45–60 minutes. Work through lessons in order; each notebook includes its own runnable examples.</p>
+<p>All people, policies, prices, and records are fictional. Amounts use Philippine pesos (₱ / PHP). This is a coding lesson, not financial advice. Real coverage and claims depend on policy terms and applicable law. Never enter personal financial or health information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-opening">Story opening<a class="anchor-link" href="#Story-opening">¶</a></h2><p>The school club asks Maya and Leo to present three fictional term policies. Their task is to show which fit a sample budget, not choose a policy for anyone.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-goals">Learning goals<a class="anchor-link" href="#Learning-goals">¶</a></h2><p>Loop over a list of dictionaries; filter records.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-03"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>The coverage amount is the benefit specified for a covered death. A premium is the payment, not the coverage amount. Policies can also differ in exclusions, payment rules, eligibility, and renewal terms; this small table omits those details.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>Each list item is a policy dictionary. Read fields by key. An if statement inside a loop can select matching records. <code>.append()</code> adds an item to a list.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict,-then-run">Predict, then run<a class="anchor-link" href="#Predict,-then-run">¶</a></h2><p>Which policies fit a monthly budget of ₱400?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_demo" id="cell-id=lesson-06-cell-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">policies</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Oak"</span><span class="p">,</span> <span class="s2">"monthly"</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> <span class="s2">"coverage"</span><span class="p">:</span> <span class="mi">300000</span><span class="p">,</span> <span class="s2">"term"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"River"</span><span class="p">,</span> <span class="s2">"monthly"</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span> <span class="s2">"coverage"</span><span class="p">:</span> <span class="mi">500000</span><span class="p">,</span> <span class="s2">"term"</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Sky"</span><span class="p">,</span> <span class="s2">"monthly"</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span> <span class="s2">"coverage"</span><span class="p">:</span> <span class="mi">800000</span><span class="p">,</span> <span class="s2">"term"</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+<span class="p">]</span>
+<span class="n">budget</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">policy</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">: ₱</span><span class="si">{</span><span class="n">policy</span><span class="p">[</span><span class="s1">'monthly'</span><span class="p">]</span><span class="si">}</span><span class="s2">/month, ₱</span><span class="si">{</span><span class="n">policy</span><span class="p">[</span><span class="s1">'coverage'</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> benefit, </span><span class="si">{</span><span class="n">policy</span><span class="p">[</span><span class="s1">'term'</span><span class="p">]</span><span class="si">}</span><span class="s2"> years"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">budget</span><span class="p">:</span>
+        <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">policy</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Within this budget:"</span><span class="p">,</span> <span class="n">matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Your-turn">Your turn<a class="anchor-link" href="#Your-turn">¶</a></h2><p>Find policies with premiums at most ₱600 and coverage of at least ₱500,000.</p>
+<p>Try your answer in the cell below before reading the sample solution.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_exercise" id="cell-id=lesson-06-cell-08">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Student workspace: replace this comment with your attempt.</span>
+<span class="c1"># This empty workspace is safe to run.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-09"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>Use and to require both comparisons to be True.</p>
+<p><strong>Common error:</strong> If a policy is missing unexpectedly, check &lt;= versus &lt; and confirm you used the monthly premium field.</p>
+</div>
+</div>
+</div>
+<details class="solution"><summary>Reveal sample solution</summary><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-10"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sample-solution">Sample solution<a class="anchor-link" href="#Sample-solution">¶</a></h2><p>Compare with your attempt after trying the challenge. There may be more than one correct approach.</p>
+</div>
+</div>
+</div><div class="cell border-box-sizing code_cell rendered celltag_solution" id="cell-id=lesson-06-cell-11">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">challenge_matches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">600</span> <span class="ow">and</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"coverage"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">500000</span><span class="p">:</span>
+        <span class="n">challenge_matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">policy</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">challenge_matches</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></details>
+
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-12"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-your-results">Check your results<a class="anchor-link" href="#Check-your-results">¶</a></h2><p><code>assert</code> checks a condition. If it is false, Python raises AssertionError. These checks verify the supplied demos and sample solutions. If you intentionally change their inputs, update the expected results too.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_validation" id="cell-id=lesson-06-cell-13">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">assert</span> <span class="n">matches</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Oak"</span><span class="p">,</span> <span class="s2">"River"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">challenge_matches</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"River"</span><span class="p">,</span> <span class="s2">"Sky"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-14"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>The club displays matching policies without declaring a winner. Maya explains why a price filter cannot decide suitability or eligibility.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-15"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exit-ticket">Exit ticket<a class="anchor-link" href="#Exit-ticket">¶</a></h2><p>Coding: How does and differ from a single comparison? Insurance: What details are missing from this table?</p>
+<p>Write your answers in your own words in a new Markdown cell.</p>
+</div>
+</div>
+</div>
+</main><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="05_budget.html">Previous lesson</a><a href="07_functions.html">Next lesson →</a></nav><footer>Fictional examples for learning. Real insurance depends on policy terms and applicable law.</footer></body></html>

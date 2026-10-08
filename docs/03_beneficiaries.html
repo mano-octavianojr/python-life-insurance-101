@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>03. Who Receives the Money? · Python Life Insurance 101</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a><header><a class="brand" href="index.html">Python Life Insurance 101</a><a href="https://github.com/mano-octavianojr/python-life-insurance-101">GitHub ↗</a></header><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="02_premiums.html">Previous lesson</a><a href="04_coverage_calendar.html">Next lesson →</a></nav><main id="content" class="lesson"><aside class="reader-note">Read the lesson here. To run or edit Python, <a href="notebooks/03_beneficiaries.ipynb" download>download this notebook</a> and use Jupyter. Lesson 08 also uses <a href="data/policy_records.csv" download>the sample CSV</a>; keep it in a data folder beside notebooks. <a href="index.html#setup">Setup instructions</a>.</aside><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-00"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="03.-Who-Receives-the-Money?">03. Who Receives the Money?<a class="anchor-link" href="#03.-Who-Receives-the-Money?">¶</a></h1><p><strong>Suggested time:</strong> 45–60 minutes. Work through lessons in order; each notebook includes its own runnable examples.</p>
+<p>All people, policies, prices, and records are fictional. Amounts use Philippine pesos (₱ / PHP). This is a coding lesson, not financial advice. Real coverage and claims depend on policy terms and applicable law. Never enter personal financial or health information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-opening">Story opening<a class="anchor-link" href="#Story-opening">¶</a></h2><p>Aunt Rosa tells Maya that she chose Ana and Ben as beneficiaries. Leo helps Maya calculate their fictional shares if a covered claim is approved.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-goals">Learning goals<a class="anchor-link" href="#Learning-goals">¶</a></h2><p>Create lists and dictionaries; access items by index and key.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-03"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>A beneficiary is a person chosen to receive the insurance money. Naming beneficiaries, changes, and payment rules depend on the policy and local law. This classroom example splits an approved benefit using specified percentages.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>A list stores items in order; index 0 selects the first item. A dictionary pairs keys with values. <code>person["share"]</code> reads a value by its key. Divide a percentage by 100 before multiplying.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict,-then-run">Predict, then run<a class="anchor-link" href="#Predict,-then-run">¶</a></h2><p>For a ₱500,000 benefit, what will shares of 60% and 40% produce?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_demo" id="cell-id=lesson-03-cell-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">benefit</span> <span class="o">=</span> <span class="mi">500000</span>
+<span class="n">beneficiaries</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Ana"</span><span class="p">,</span> <span class="s2">"share"</span><span class="p">:</span> <span class="mi">60</span><span class="p">},</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Ben"</span><span class="p">,</span> <span class="s2">"share"</span><span class="p">:</span> <span class="mi">40</span><span class="p">}]</span>
+<span class="n">first</span> <span class="o">=</span> <span class="n">beneficiaries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">second</span> <span class="o">=</span> <span class="n">beneficiaries</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">first_amount</span> <span class="o">=</span> <span class="n">benefit</span> <span class="o">*</span> <span class="n">first</span><span class="p">[</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+<span class="n">second_amount</span> <span class="o">=</span> <span class="n">benefit</span> <span class="o">*</span> <span class="n">second</span><span class="p">[</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">first</span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"₱</span><span class="si">{</span><span class="n">first_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">second</span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"₱</span><span class="si">{</span><span class="n">second_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Your-turn">Your turn<a class="anchor-link" href="#Your-turn">¶</a></h2><p>Create two fictional beneficiaries with 25% and 75% shares of ₱800,000. Calculate their amounts and the sum of their shares.</p>
+<p>Try your answer in the cell below before reading the sample solution.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_exercise" id="cell-id=lesson-03-cell-08">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Student workspace: replace this comment with your attempt.</span>
+<span class="c1"># This empty workspace is safe to run.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-09"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>Access each dictionary using index 0 or 1, then read its share key.</p>
+<p><strong>Common error:</strong> KeyError means the dictionary key does not exist. Check spelling, including uppercase letters.</p>
+</div>
+</div>
+</div>
+<details class="solution"><summary>Reveal sample solution</summary><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-10"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sample-solution">Sample solution<a class="anchor-link" href="#Sample-solution">¶</a></h2><p>Compare with your attempt after trying the challenge. There may be more than one correct approach.</p>
+</div>
+</div>
+</div><div class="cell border-box-sizing code_cell rendered celltag_solution" id="cell-id=lesson-03-cell-11">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">students</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Cora"</span><span class="p">,</span> <span class="s2">"share"</span><span class="p">:</span> <span class="mi">25</span><span class="p">},</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Dan"</span><span class="p">,</span> <span class="s2">"share"</span><span class="p">:</span> <span class="mi">75</span><span class="p">}]</span>
+<span class="n">share_total</span> <span class="o">=</span> <span class="n">students</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">+</span> <span class="n">students</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span>
+<span class="n">cora_amount</span> <span class="o">=</span> <span class="mi">800000</span> <span class="o">*</span> <span class="n">students</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+<span class="n">dan_amount</span> <span class="o">=</span> <span class="mi">800000</span> <span class="o">*</span> <span class="n">students</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shares total </span><span class="si">{</span><span class="n">share_total</span><span class="si">}</span><span class="s2">%; amounts: ₱</span><span class="si">{</span><span class="n">cora_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">, ₱</span><span class="si">{</span><span class="n">dan_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></details>
+
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-12"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-your-results">Check your results<a class="anchor-link" href="#Check-your-results">¶</a></h2><p><code>assert</code> checks a condition. If it is false, Python raises AssertionError. These checks verify the supplied demos and sample solutions. If you intentionally change their inputs, update the expected results too.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_validation" id="cell-id=lesson-03-cell-13">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">assert</span> <span class="n">first_amount</span> <span class="o">==</span> <span class="mi">300000</span> <span class="ow">and</span> <span class="n">second_amount</span> <span class="o">==</span> <span class="mi">200000</span>
+<span class="k">assert</span> <span class="n">share_total</span> <span class="o">==</span> <span class="mi">100</span> <span class="ow">and</span> <span class="n">cora_amount</span> <span class="o">+</span> <span class="n">dan_amount</span> <span class="o">==</span> <span class="mi">800000</span>
+<span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">students</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">100</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">students</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-14"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya can explain how this fictional split works. She understands that naming recipients matters, and that an actual payout follows policy and legal rules.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-15"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exit-ticket">Exit ticket<a class="anchor-link" href="#Exit-ticket">¶</a></h2><p>Coding: Why is the first list index 0? Insurance: What is a beneficiary?</p>
+<p>Write your answers in your own words in a new Markdown cell.</p>
+</div>
+</div>
+</div>
+</main><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="02_premiums.html">Previous lesson</a><a href="04_coverage_calendar.html">Next lesson →</a></nav><footer>Fictional examples for learning. Real insurance depends on policy terms and applicable law.</footer></body></html>

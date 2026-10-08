@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>04. Coverage Has a Calendar · Python Life Insurance 101</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a><header><a class="brand" href="index.html">Python Life Insurance 101</a><a href="https://github.com/mano-octavianojr/python-life-insurance-101">GitHub ↗</a></header><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="03_beneficiaries.html">Previous lesson</a><a href="05_budget.html">Next lesson →</a></nav><main id="content" class="lesson"><aside class="reader-note">Read the lesson here. To run or edit Python, <a href="notebooks/04_coverage_calendar.ipynb" download>download this notebook</a> and use Jupyter. Lesson 08 also uses <a href="data/policy_records.csv" download>the sample CSV</a>; keep it in a data folder beside notebooks. <a href="index.html#setup">Setup instructions</a>.</aside><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-00"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="04.-Coverage-Has-a-Calendar">04. Coverage Has a Calendar<a class="anchor-link" href="#04.-Coverage-Has-a-Calendar">¶</a></h1><p><strong>Suggested time:</strong> 45–60 minutes. Work through lessons in order; each notebook includes its own runnable examples.</p>
+<p>All people, policies, prices, and records are fictional. Amounts use Philippine pesos (₱ / PHP). This is a coding lesson, not financial advice. Real coverage and claims depend on policy terms and applicable law. Never enter personal financial or health information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-opening">Story opening<a class="anchor-link" href="#Story-opening">¶</a></h2><p>Leo finds a fictional policy with a start date and an end date. Maya checks three dates to understand the coverage window before discussing any claim.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-goals">Learning goals<a class="anchor-link" href="#Learning-goals">¶</a></h2><p>Compare dates; use booleans and if/elif/else.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-03"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>Term life insurance covers a set period. It generally does not pay a death benefit if the insured person survives beyond that term. For this example only, the start date is included and the end date is excluded. Actual effective times, renewal, exclusions, and continued coverage depend on policy terms.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p><code>date(year, month, day)</code> creates a calendar date. <code>&lt;</code> means earlier than and <code>&gt;=</code> means on or after. Comparisons give True or False. Indent the instructions inside each conditional branch by four spaces.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict,-then-run">Predict, then run<a class="anchor-link" href="#Predict,-then-run">¶</a></h2><p>Is the exact end date inside our stated window?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_demo" id="cell-id=lesson-04-cell-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2036</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">event_date</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2030</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">event_date</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">:</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">"Before the example window"</span>
+<span class="k">elif</span> <span class="n">event_date</span> <span class="o">&gt;=</span> <span class="n">end</span><span class="p">:</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">"After or at the end of the example window"</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">"Inside the example window; this is not a claim decision"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Your-turn">Your turn<a class="anchor-link" href="#Your-turn">¶</a></h2><p>Use comparisons to check 2025-12-31, 2026-01-01, and 2036-01-01. Assign each result to a different variable.</p>
+<p>Try your answer in the cell below before reading the sample solution.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_exercise" id="cell-id=lesson-04-cell-08">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Student workspace: replace this comment with your attempt.</span>
+<span class="c1"># This empty workspace is safe to run.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-09"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>Use start &lt;= candidate &lt; end for each date. This checks both boundaries.</p>
+<p><strong>Common error:</strong> IndentationError means a branch is not indented consistently. Use four spaces.</p>
+</div>
+</div>
+</div>
+<details class="solution"><summary>Reveal sample solution</summary><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-10"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sample-solution">Sample solution<a class="anchor-link" href="#Sample-solution">¶</a></h2><p>Compare with your attempt after trying the challenge. There may be more than one correct approach.</p>
+</div>
+</div>
+</div><div class="cell border-box-sizing code_cell rendered celltag_solution" id="cell-id=lesson-04-cell-11">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">before</span> <span class="o">=</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">end</span>
+<span class="n">at_start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">end</span>
+<span class="n">at_end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2036</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">end</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">at_start</span><span class="p">,</span> <span class="n">at_end</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></details>
+
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-12"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-your-results">Check your results<a class="anchor-link" href="#Check-your-results">¶</a></h2><p><code>assert</code> checks a condition. If it is false, Python raises AssertionError. These checks verify the supplied demos and sample solutions. If you intentionally change their inputs, update the expected results too.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_validation" id="cell-id=lesson-04-cell-13">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">at_start</span><span class="p">,</span> <span class="n">at_end</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">event_date</span> <span class="o">&lt;</span> <span class="n">end</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-14"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Leo correctly excludes the end date under the example convention. Maya explains that a calendar check cannot establish whether a real claim is payable.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-15"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exit-ticket">Exit ticket<a class="anchor-link" href="#Exit-ticket">¶</a></h2><p>Coding: What is a boolean? Insurance: Why is a date inside the window insufficient to approve a claim?</p>
+<p>Write your answers in your own words in a new Markdown cell.</p>
+</div>
+</div>
+</div>
+</main><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="03_beneficiaries.html">Previous lesson</a><a href="05_budget.html">Next lesson →</a></nav><footer>Fictional examples for learning. Real insurance depends on policy terms and applicable law.</footer></body></html>

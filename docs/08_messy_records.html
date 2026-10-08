@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>08. Fixing the Messy Records · Python Life Insurance 101</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a><header><a class="brand" href="index.html">Python Life Insurance 101</a><a href="https://github.com/mano-octavianojr/python-life-insurance-101">GitHub ↗</a></header><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="07_functions.html">Previous lesson</a><a href="09_charts.html">Next lesson →</a></nav><main id="content" class="lesson"><aside class="reader-note">Read the lesson here. To run or edit Python, <a href="notebooks/08_messy_records.ipynb" download>download this notebook</a> and use Jupyter. Lesson 08 also uses <a href="data/policy_records.csv" download>the sample CSV</a>; keep it in a data folder beside notebooks. <a href="index.html#setup">Setup instructions</a>.</aside><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-00"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="08.-Fixing-the-Messy-Records">08. Fixing the Messy Records<a class="anchor-link" href="#08.-Fixing-the-Messy-Records">¶</a></h1><p><strong>Suggested time:</strong> 45–60 minutes. Work through lessons in order; each notebook includes its own runnable examples.</p>
+<p>All people, policies, prices, and records are fictional. Amounts use Philippine pesos (₱ / PHP). This is a coding lesson, not financial advice. Real coverage and claims depend on policy terms and applicable law. Never enter personal financial or health information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-opening">Story opening<a class="anchor-link" href="#Story-opening">¶</a></h2><p>The club receives a synthetic CSV with missing names, negative premiums, and text where numbers should be. Maya and Leo must flag problems without inventing facts.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-goals">Learning goals<a class="anchor-link" href="#Learning-goals">¶</a></h2><p>Load a local CSV with pandas; convert numeric text; flag missing or invalid data.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-03"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>A policy record stores information about a policy. Incorrect records can mislead people. A missing premium must not be silently treated as zero, and a missing name must not be guessed. Flagging records for review is safer than claiming they are correct.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p>CSV is a plain-text table. pandas represents it as a DataFrame. <code>pd.to_numeric(..., errors="coerce")</code> converts numeric text and marks invalid text as missing. <code>.isna()</code> detects missing values. <code>&amp;</code> combines column conditions; surround each comparison with parentheses. <code>.loc</code> selects rows.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict,-then-run">Predict, then run<a class="anchor-link" href="#Predict,-then-run">¶</a></h2><p>Of six records, how many have a nonblank name and a strictly positive numeric monthly premium?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_demo" id="cell-id=lesson-08-cell-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="c1"># Support starting Jupyter from the project root or notebooks folder.</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"../data/policy_records.csv"</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">data_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data/policy_records.csv"</span><span class="p">)</span>
+<span class="n">records</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+<span class="n">clean</span> <span class="o">=</span> <span class="n">records</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">clean</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">clean</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+<span class="n">valid</span> <span class="o">=</span> <span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">accepted</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">review</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">valid</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Accepted for this classroom check:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">accepted</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Needs review:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">review</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Your-turn">Your turn<a class="anchor-link" href="#Your-turn">¶</a></h2><p>Calculate the total premiums of accepted records only. Count the rows needing review. Explain why filling every missing premium with 0 is misleading.</p>
+<p>Try your answer in the cell below before reading the sample solution.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_exercise" id="cell-id=lesson-08-cell-08">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Student workspace: replace this comment with your attempt.</span>
+<span class="c1"># This empty workspace is safe to run.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-09"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>Use accepted["monthly_premium"].sum() and len(review). Passing this check does not verify a real policy.</p>
+<p><strong>Common error:</strong> FileNotFoundError means the data path is wrong. Start Jupyter from the project root and keep the data folder beside notebooks.</p>
+</div>
+</div>
+</div>
+<details class="solution"><summary>Reveal sample solution</summary><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-10"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sample-solution">Sample solution<a class="anchor-link" href="#Sample-solution">¶</a></h2><p>Compare with your attempt after trying the challenge. There may be more than one correct approach.</p>
+</div>
+</div>
+</div><div class="cell border-box-sizing code_cell rendered celltag_solution" id="cell-id=lesson-08-cell-11">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">accepted_total</span> <span class="o">=</span> <span class="n">accepted</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">review_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Accepted monthly total: ₱</span><span class="si">{</span><span class="n">accepted_total</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">; review count: </span><span class="si">{</span><span class="n">review_count</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></details>
+
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-12"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-your-results">Check your results<a class="anchor-link" href="#Check-your-results">¶</a></h2><p><code>assert</code> checks a condition. If it is false, Python raises AssertionError. These checks verify the supplied demos and sample solutions. If you intentionally change their inputs, update the expected results too.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_validation" id="cell-id=lesson-08-cell-13">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">assert</span> <span class="n">accepted</span><span class="p">[</span><span class="s2">"policy_id"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"P001"</span><span class="p">,</span> <span class="s2">"P006"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">review_count</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">accepted_total</span> <span class="o">==</span> <span class="mi">950</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">accepted</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-14"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya preserves the original file and separates four records for review. Leo explains that valid-looking numbers do not establish that a real policy is active.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-15"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exit-ticket">Exit ticket<a class="anchor-link" href="#Exit-ticket">¶</a></h2><p>Coding: What does missing numeric data mean? Insurance: Why should a missing payment amount not be guessed?</p>
+<p>Write your answers in your own words in a new Markdown cell.</p>
+</div>
+</div>
+</div>
+</main><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="07_functions.html">Previous lesson</a><a href="09_charts.html">Next lesson →</a></nav><footer>Fictional examples for learning. Real insurance depends on policy terms and applicable law.</footer></body></html>

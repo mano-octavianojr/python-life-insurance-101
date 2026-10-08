@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>07. A Calculator That Can Be Reused · Python Life Insurance 101</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a><header><a class="brand" href="index.html">Python Life Insurance 101</a><a href="https://github.com/mano-octavianojr/python-life-insurance-101">GitHub ↗</a></header><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="06_policy_comparison.html">Previous lesson</a><a href="08_messy_records.html">Next lesson →</a></nav><main id="content" class="lesson"><aside class="reader-note">Read the lesson here. To run or edit Python, <a href="notebooks/07_functions.ipynb" download>download this notebook</a> and use Jupyter. Lesson 08 also uses <a href="data/policy_records.csv" download>the sample CSV</a>; keep it in a data folder beside notebooks. <a href="index.html#setup">Setup instructions</a>.</aside><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-00"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="07.-A-Calculator-That-Can-Be-Reused">07. A Calculator That Can Be Reused<a class="anchor-link" href="#07.-A-Calculator-That-Can-Be-Reused">¶</a></h1><p><strong>Suggested time:</strong> 45–60 minutes. Work through lessons in order; each notebook includes its own runnable examples.</p>
+<p>All people, policies, prices, and records are fictional. Amounts use Philippine pesos (₱ / PHP). This is a coding lesson, not financial advice. Real coverage and claims depend on policy terms and applicable law. Never enter personal financial or health information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-opening">Story opening<a class="anchor-link" href="#Story-opening">¶</a></h2><p>Maya repeats the same arithmetic for several fictional households. Leo suggests naming each calculation so they can reuse it safely.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-goals">Learning goals<a class="anchor-link" href="#Learning-goals">¶</a></h2><p>Define functions; pass arguments; return values; test calculations.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-03"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>A simplified coverage gap is an estimated money need minus resources already available, with a minimum of zero. This exercise ignores inflation, debts changing over time, taxes, and many other factors. It is not a recommendation or a way to calculate an insurance price.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p><code>def</code> starts a function. Parameters name its inputs. <code>return</code> sends a result back. <code>max(0, value)</code> keeps a negative result from becoming a negative gap. <code>raise ValueError</code> reports an unacceptable input; try/except can handle that expected error.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict,-then-run">Predict, then run<a class="anchor-link" href="#Predict,-then-run">¶</a></h2><p>What gap results from a ₱600,000 need and ₱200,000 resources? What if resources exceed the need?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_demo" id="cell-id=lesson-07-cell-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">annual_premium</span><span class="p">(</span><span class="n">monthly</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">monthly</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Monthly premium cannot be negative"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">monthly</span> <span class="o">*</span> <span class="mi">12</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">coverage_gap</span><span class="p">(</span><span class="n">need</span><span class="p">,</span> <span class="n">resources</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">need</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">resources</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Use nonnegative amounts"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">need</span> <span class="o">-</span> <span class="n">resources</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">annual_premium</span><span class="p">(</span><span class="mi">350</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">coverage_gap</span><span class="p">(</span><span class="mi">600000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">coverage_gap</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span> <span class="mi">150000</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Your-turn">Your turn<a class="anchor-link" href="#Your-turn">¶</a></h2><p>Calculate gaps for needs/resources of (800000, 300000), (200000, 200000), and (100000, 150000). Handle a negative monthly premium without crashing.</p>
+<p>Try your answer in the cell below before reading the sample solution.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_exercise" id="cell-id=lesson-07-cell-08">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Student workspace: replace this comment with your attempt.</span>
+<span class="c1"># This empty workspace is safe to run.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-09"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>Call the function three times. Put the invalid call inside try and print the message inside except ValueError.</p>
+<p><strong>Common error:</strong> If your result is None, check that your function uses return rather than only print.</p>
+</div>
+</div>
+</div>
+<details class="solution"><summary>Reveal sample solution</summary><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-10"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sample-solution">Sample solution<a class="anchor-link" href="#Sample-solution">¶</a></h2><p>Compare with your attempt after trying the challenge. There may be more than one correct approach.</p>
+</div>
+</div>
+</div><div class="cell border-box-sizing code_cell rendered celltag_solution" id="cell-id=lesson-07-cell-11">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">gaps</span> <span class="o">=</span> <span class="p">[</span><span class="n">coverage_gap</span><span class="p">(</span><span class="mi">800000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">),</span> <span class="n">coverage_gap</span><span class="p">(</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">),</span> <span class="n">coverage_gap</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span> <span class="mi">150000</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gaps</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">annual_premium</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Expected input error:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></details>
+
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-12"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-your-results">Check your results<a class="anchor-link" href="#Check-your-results">¶</a></h2><p><code>assert</code> checks a condition. If it is false, Python raises AssertionError. These checks verify the supplied demos and sample solutions. If you intentionally change their inputs, update the expected results too.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_validation" id="cell-id=lesson-07-cell-13">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">assert</span> <span class="n">annual_premium</span><span class="p">(</span><span class="mi">350</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4200</span>
+<span class="k">assert</span> <span class="n">gaps</span> <span class="o">==</span> <span class="p">[</span><span class="mi">500000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">coverage_gap</span><span class="p">(</span><span class="mi">600000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">)</span> <span class="o">==</span> <span class="mi">400000</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-14"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya has reusable tools and knows why a negative gap is replaced with zero. Leo adds a note listing what the classroom estimate leaves out.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-15"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exit-ticket">Exit ticket<a class="anchor-link" href="#Exit-ticket">¶</a></h2><p>Coding: How do return and print differ? Insurance: Why is a coverage-gap estimate not a premium quote?</p>
+<p>Write your answers in your own words in a new Markdown cell.</p>
+</div>
+</div>
+</div>
+</main><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="06_policy_comparison.html">Previous lesson</a><a href="08_messy_records.html">Next lesson →</a></nav><footer>Fictional examples for learning. Real insurance depends on policy terms and applicable law.</footer></body></html>

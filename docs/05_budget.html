@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>05. Maya Builds a Budget · Python Life Insurance 101</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a><header><a class="brand" href="index.html">Python Life Insurance 101</a><a href="https://github.com/mano-octavianojr/python-life-insurance-101">GitHub ↗</a></header><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="04_coverage_calendar.html">Previous lesson</a><a href="06_policy_comparison.html">Next lesson →</a></nav><main id="content" class="lesson"><aside class="reader-note">Read the lesson here. To run or edit Python, <a href="notebooks/05_budget.ipynb" download>download this notebook</a> and use Jupyter. Lesson 08 also uses <a href="data/policy_records.csv" download>the sample CSV</a>; keep it in a data folder beside notebooks. <a href="index.html#setup">Setup instructions</a>.</aside><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-00"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="05.-Maya-Builds-a-Budget">05. Maya Builds a Budget<a class="anchor-link" href="#05.-Maya-Builds-a-Budget">¶</a></h1><p><strong>Suggested time:</strong> 45–60 minutes. Work through lessons in order; each notebook includes its own runnable examples.</p>
+<p>All people, policies, prices, and records are fictional. Amounts use Philippine pesos (₱ / PHP). This is a coding lesson, not financial advice. Real coverage and claims depend on policy terms and applicable law. Never enter personal financial or health information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-opening">Story opening<a class="anchor-link" href="#Story-opening">¶</a></h2><p>Maya and Leo create a fictional household budget. They want to see how an insurance premium fits alongside ordinary expenses without using anyone’s private information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-goals">Learning goals<a class="anchor-link" href="#Learning-goals">¶</a></h2><p>Loop through a dictionary; accumulate totals; calculate a remainder.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-03"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Insurance-in-everyday-words">Insurance in everyday words<a class="anchor-link" href="#Insurance-in-everyday-words">¶</a></h2><p>Premiums are one household expense. A budget compares money coming in with money going out. Money left after these listed expenses is not necessarily freely available: real households may have other costs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-toolbox">Python toolbox<a class="anchor-link" href="#Python-toolbox">¶</a></h2><p><code>for</code> repeats instructions. <code>.items()</code> gives each dictionary key and value. <code>+=</code> adds to the current total. The loop body must be indented.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Predict,-then-run">Predict, then run<a class="anchor-link" href="#Predict,-then-run">¶</a></h2><p>With income of ₱20,000, will the listed expenses leave a positive remainder?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_demo" id="cell-id=lesson-05-cell-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="mi">20000</span>
+<span class="n">expenses</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"food"</span><span class="p">:</span> <span class="mi">6500</span><span class="p">,</span> <span class="s2">"transport"</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span> <span class="s2">"housing"</span><span class="p">:</span> <span class="mi">8000</span><span class="p">,</span> <span class="s2">"premium"</span><span class="p">:</span> <span class="mi">350</span><span class="p">}</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">amount</span> <span class="ow">in</span> <span class="n">expenses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">amount</span>
+<span class="n">remaining</span> <span class="o">=</span> <span class="n">income</span> <span class="o">-</span> <span class="n">total</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Listed expenses: ₱</span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">; remaining: ₱</span><span class="si">{</span><span class="n">remaining</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Your-turn">Your turn<a class="anchor-link" href="#Your-turn">¶</a></h2><p>Copy the expenses dictionary, change transport to ₱2,500, add school supplies of ₱700, and calculate the new remainder.</p>
+<p>Try your answer in the cell below before reading the sample solution.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_exercise" id="cell-id=lesson-05-cell-08">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Student workspace: replace this comment with your attempt.</span>
+<span class="c1"># This empty workspace is safe to run.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-09"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hint">Hint<a class="anchor-link" href="#Hint">¶</a></h2><p>Use .copy() to preserve the original. Assign a new value with a dictionary key. sum() adds a collection of numbers.</p>
+<p><strong>Common error:</strong> If a total grows unexpectedly when rerunning a cell, initialize it to 0 before the loop.</p>
+</div>
+</div>
+</div>
+<details class="solution"><summary>Reveal sample solution</summary><div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-10"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sample-solution">Sample solution<a class="anchor-link" href="#Sample-solution">¶</a></h2><p>Compare with your attempt after trying the challenge. There may be more than one correct approach.</p>
+</div>
+</div>
+</div><div class="cell border-box-sizing code_cell rendered celltag_solution" id="cell-id=lesson-05-cell-11">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">revised</span> <span class="o">=</span> <span class="n">expenses</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">revised</span><span class="p">[</span><span class="s2">"transport"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2500</span>
+<span class="n">revised</span><span class="p">[</span><span class="s2">"school supplies"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">700</span>
+<span class="n">revised_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">revised</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">revised_remaining</span> <span class="o">=</span> <span class="n">income</span> <span class="o">-</span> <span class="n">revised_total</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"New remainder: ₱</span><span class="si">{</span><span class="n">revised_remaining</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></details>
+
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-12"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Check-your-results">Check your results<a class="anchor-link" href="#Check-your-results">¶</a></h2><p><code>assert</code> checks a condition. If it is false, Python raises AssertionError. These checks verify the supplied demos and sample solutions. If you intentionally change their inputs, update the expected results too.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_validation" id="cell-id=lesson-05-cell-13">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">assert</span> <span class="n">total</span> <span class="o">==</span> <span class="mi">16850</span> <span class="ow">and</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">3150</span>
+<span class="k">assert</span> <span class="n">revised_total</span> <span class="o">==</span> <span class="mi">18050</span> <span class="ow">and</span> <span class="n">revised_remaining</span> <span class="o">==</span> <span class="mi">1950</span>
+<span class="k">assert</span> <span class="n">expenses</span><span class="p">[</span><span class="s2">"transport"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2000</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-14"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya sees the remainder fall by ₱1,200. Leo notes that their calculation describes a sample budget, not what another family should spend.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-15"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exit-ticket">Exit ticket<a class="anchor-link" href="#Exit-ticket">¶</a></h2><p>Coding: Why copy the dictionary? Insurance: Why consider the premium alongside other expenses?</p>
+<p>Write your answers in your own words in a new Markdown cell.</p>
+</div>
+</div>
+</div>
+</main><nav class="lesson-nav" aria-label="Lesson navigation"><a href="index.html">← All lessons</a><a href="04_coverage_calendar.html">Previous lesson</a><a href="06_policy_comparison.html">Next lesson →</a></nav><footer>Fictional examples for learning. Real insurance depends on policy terms and applicable law.</footer></body></html>
