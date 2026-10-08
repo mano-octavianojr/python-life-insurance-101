@@ -30,6 +30,10 @@ def main():
         if path.name != 'index.html':
             notebook_path = ROOT / 'notebooks' / (path.stem + '.ipynb')
             notebook = nbformat.read(notebook_path, as_version=4)
+            colab_url = 'https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/' + notebook_path.name
+            assert colab_url in notebook.cells[1].source
+            assert soup.find('a', href=colab_url)
+            assert colab_url in (ROOT / 'README.md').read_text()
             assert (SITE / 'notebooks' / notebook_path.name).read_bytes() == notebook_path.read_bytes()
             # Compare full source code to exported code, preserving whitespace.
             exported = [node.get_text() for node in soup.select('.input_area pre')]
@@ -42,6 +46,8 @@ def main():
             assert soup.select_one('details.solution summary')
             assert soup.select_one('details.solution .input_area pre')
         print('PASS', path.name)
+    catalog = BeautifulSoup((SITE / 'index.html').read_text(), 'html.parser')
+    assert len(catalog.select('.card .colab-button')) == 10
     assert (SITE / 'data/policy_records.csv').read_bytes() == (ROOT / 'data/policy_records.csv').read_bytes()
     print(f'Validated {len(pages)} pages and {links} local links, plus lesson code and downloads.')
 

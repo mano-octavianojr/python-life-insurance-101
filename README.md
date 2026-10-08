@@ -29,6 +29,10 @@ python scripts/validate_site.py
 
 Commit the updated files in `docs/` together with the notebooks. Website generation requires the dependencies in `requirements.txt`.
 
+## Run in Google Colab
+
+Click an **Open in Colab** badge below, on a website lesson card, or inside a notebook to run Python in your browser. Sign in to Google if prompted. Choose **File → Save a copy in Drive** to retain edits; your changes do not modify this GitHub repository. No local installation is needed. Lesson 08 loads the public synthetic CSV from GitHub if a local copy is unavailable, so that lesson requires an Internet connection.
+
 ## Get started
 
 Use Python 3.10 or newer (validated with Python 3.12). From the project directory:
@@ -46,18 +50,18 @@ Allow about 45–60 minutes per lesson. Learn in order, predict outputs before r
 
 ## Lessons
 
-| Notebook | Python focus |
-|---|---|
-| [01 — Meet Maya](notebooks/01_first_program.ipynb) | Printing, strings, comments |
-| [02 — Monthly Payment Mystery](notebooks/02_premiums.ipynb) | Variables, arithmetic, formatted strings |
-| [03 — Who Receives the Money?](notebooks/03_beneficiaries.ipynb) | Lists and dictionaries |
-| [04 — Coverage Has a Calendar](notebooks/04_coverage_calendar.ipynb) | Dates, comparisons, conditionals |
-| [05 — Maya Builds a Budget](notebooks/05_budget.ipynb) | Loops and totals |
-| [06 — Policy Comparison Club](notebooks/06_policy_comparison.ipynb) | Records and filtering |
-| [07 — Reusable Calculator](notebooks/07_functions.ipynb) | Functions and error handling |
-| [08 — Messy Records](notebooks/08_messy_records.ipynb) | pandas and local CSV data |
-| [09 — Tell the Story with Charts](notebooks/09_charts.ipynb) | matplotlib and interpretation |
-| [10 — Learning Fair](notebooks/10_learning_fair.ipynb) | Policy explorer and quiz |
+| Notebook | Python focus | Run online |
+|---|---|---|
+| [01 — Meet Maya](notebooks/01_first_program.ipynb) | Printing, strings, comments  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/01_first_program.ipynb) |
+| [02 — Monthly Payment Mystery](notebooks/02_premiums.ipynb) | Variables, arithmetic, formatted strings  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/02_premiums.ipynb) |
+| [03 — Who Receives the Money?](notebooks/03_beneficiaries.ipynb) | Lists and dictionaries  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/03_beneficiaries.ipynb) |
+| [04 — Coverage Has a Calendar](notebooks/04_coverage_calendar.ipynb) | Dates, comparisons, conditionals  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/04_coverage_calendar.ipynb) |
+| [05 — Maya Builds a Budget](notebooks/05_budget.ipynb) | Loops and totals  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/05_budget.ipynb) |
+| [06 — Policy Comparison Club](notebooks/06_policy_comparison.ipynb) | Records and filtering  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/06_policy_comparison.ipynb) |
+| [07 — Reusable Calculator](notebooks/07_functions.ipynb) | Functions and error handling  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/07_functions.ipynb) |
+| [08 — Messy Records](notebooks/08_messy_records.ipynb) | pandas and local CSV data  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/08_messy_records.ipynb) |
+| [09 — Tell the Story with Charts](notebooks/09_charts.ipynb) | matplotlib and interpretation  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/09_charts.ipynb) |
+| [10 — Learning Fair](notebooks/10_learning_fair.ipynb) | Policy explorer and quiz  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/10_learning_fair.ipynb) |
 
 Each notebook includes a story, learning goals, an insurance explanation, a Python toolbox, predictions, a guided demo, a challenge, a hint, a sample solution, executable checks, a story ending, and an exit ticket. See [PLAN.md](PLAN.md) for the curriculum plan.
 
@@ -71,7 +75,7 @@ python scripts/validate_notebooks.py
 
 The validator checks notebook format and lesson sections, runs every notebook in a fresh kernel, executes numerical assertions, checks that the chart renders, and saves executed copies under `.validation/`. Source notebooks stay free of outputs for students. If you change demonstration inputs, update their assertions as appropriate.
 
-The CSV under `data/` is synthetic and intentionally contains invalid records for lesson 08. No network calls or credentials are needed to execute lessons after dependencies are installed.
+The CSV under `data/` is synthetic and intentionally contains invalid records for lesson 08. With the repository downloaded, no network calls or credentials are needed to execute lessons after dependencies are installed. In Colab, lesson 08 fetches its public sample CSV when no local copy exists.
 
 ## Insurance scope
 

@@ -26,3 +26,7 @@ The static website is generated directly from the source notebooks using `python
 - Git whitespace checks passed.
 
 The layout includes a mobile viewport, responsive columns, keyboard focus styles, a skip link, and native expandable solutions. Browser visual testing was not performed in this environment. GitHub Pages activation and public deployment were not verified; README.md documents how to enable branch deployment from main /docs.
+
+## Google Colab links
+
+Added official Open in Colab badges for every source notebook, README lesson row, website card, and lesson page. The website validator checks the expected repository/branch/notebook targets and all ten catalog badges. All 10 notebooks and 40 code cells passed again. Lesson 08 also executed successfully from a directory without local data, exercising its public GitHub CSV fallback. Actual signed-in Google Colab sessions were not tested.
