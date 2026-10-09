@@ -38,4 +38,4 @@ On Windows, use `.venv\Scripts\activate` to activate the environment. Open the `
 
 ## Development approach
 
-This project was built through vibe coding with AI assistance. The code and results were reviewed and validated by a human.
+This project was built through vibe coding with AI assistance. The code and results were reviewed and validated by a human. If you spot an error or something I may have overlooked in the code or concepts, please contact me at [manolito.octavianojr@gmail.com](mailto:manolito.octavianojr@gmail.com).
