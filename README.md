@@ -2,6 +2,10 @@
 
 Ten story-based Jupyter notebooks teach high school students Python from scratch through simple life insurance examples. Follow Maya and Leo from their first printed message to a policy explorer, with guided demos, exercises, hints, and sample solutions. All people, policies, prices, and data are fictional educational examples.
 
+## Development approach
+
+This project was built through vibe coding with AI assistance. The code and results were reviewed and validated by a human.
+
 ## How to access
 
 ### Run in Google Colab
