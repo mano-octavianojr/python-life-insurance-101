@@ -2,10 +2,6 @@
 
 Ten story-based Jupyter notebooks teach high school students Python from scratch through simple life insurance examples. Follow Maya and Leo from their first printed message to a policy explorer, with guided demos, exercises, hints, and sample solutions. All people, policies, prices, and data are fictional educational examples.
 
-## Development approach
-
-This project was built through vibe coding with AI assistance. The code and results were reviewed and validated by a human.
-
 ## How to access
 
 ### Run in Google Colab
@@ -39,3 +35,7 @@ On Windows, use `.venv\Scripts\activate` to activate the environment. Open the `
 | [08 — Messy Records](notebooks/08_messy_records.ipynb) | pandas and local CSV data | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/08_messy_records.ipynb) |
 | [09 — Tell the Story with Charts](notebooks/09_charts.ipynb) | matplotlib and interpretation | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/09_charts.ipynb) |
 | [10 — Learning Fair](notebooks/10_learning_fair.ipynb) | Policy explorer and quiz | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mano-octavianojr/python-life-insurance-101/blob/main/notebooks/10_learning_fair.ipynb) |
+
+## Development approach
+
+This project was built through vibe coding with AI assistance. The code and results were reviewed and validated by a human.
