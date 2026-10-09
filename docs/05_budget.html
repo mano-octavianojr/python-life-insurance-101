@@ -125,6 +125,86 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-05-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-05-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Trace-the-running-total">Trace the running total<a class="anchor-link" href="#Trace-the-running-total">¶</a></h3><p>Leo uses a smaller list of expenses to see what += does. Predict the total after each loop step.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-05-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">practice_expenses</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"food"</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span> <span class="s2">"transport"</span><span class="p">:</span> <span class="mi">1800</span><span class="p">,</span> <span class="s2">"premium"</span><span class="p">:</span> <span class="mi">400</span><span class="p">}</span>
+<span class="n">practice_total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">amount</span> <span class="ow">in</span> <span class="n">practice_expenses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">practice_total</span> <span class="o">+=</span> <span class="n">amount</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After </span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2">: PHP </span><span class="si">{</span><span class="n">practice_total</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">practice_total</span> <span class="o">==</span> <span class="mi">8200</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-05-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The running totals are PHP 6,000, PHP 7,800, and PHP 8,200. The accumulator starts at zero before the loop; initializing it inside the loop would discard earlier amounts.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-05-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-an-extra-expense-without-changing-the-original">Model an extra expense without changing the original<a class="anchor-link" href="#Model-an-extra-expense-without-changing-the-original">¶</a></h3><p>Use the original fictional budget. Predict the remainder after adding a PHP 4,000 repair expense.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-05-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">repair_budget</span> <span class="o">=</span> <span class="n">expenses</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">repair_budget</span><span class="p">[</span><span class="s2">"repair"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4000</span>
+<span class="n">repair_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">repair_budget</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">repair_remainder</span> <span class="o">=</span> <span class="n">income</span> <span class="o">-</span> <span class="n">repair_total</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"With repair: PHP </span><span class="si">{</span><span class="n">repair_total</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> in listed expenses"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Remainder: PHP </span><span class="si">{</span><span class="n">repair_remainder</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">repair_remainder</span> <span class="o">==</span> <span class="o">-</span><span class="mi">850</span>
+<span class="k">assert</span> <span class="s2">"repair"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">expenses</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-05-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The listed expenses become PHP 20,850 and the remainder is negative PHP 850. A negative result describes a shortfall in this model; the program cannot decide which expenses a household should change.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-05-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>Why must we reset a running total before rerunning a calculation?</p>
+</li>
+<li><p>Does a positive remainder prove a household can afford a policy?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>Without resetting it, another pass adds the same expenses again and double-counts them.</p>
+</li>
+<li><p>No. This fictional list can omit expenses, irregular costs, and other commitments. Explain the limits of the inputs alongside the result.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-05-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya sees the remainder fall by ₱1,200. Leo notes that their calculation describes a sample budget, not what another family should spend.</p>

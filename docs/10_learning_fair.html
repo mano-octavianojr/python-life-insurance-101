@@ -197,6 +197,91 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-10-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-10-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Explore-exact-thresholds-and-empty-searches">Explore exact thresholds and empty searches<a class="anchor-link" href="#Explore-exact-thresholds-and-empty-searches">¶</a></h3><p>Predict the matches for each budget and minimum-coverage pair. The second number is a coverage request, not a premium.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-10-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">visitor_scenarios</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"250"</span><span class="p">,</span> <span class="mi">300000</span><span class="p">),</span> <span class="p">(</span><span class="s2">"350"</span><span class="p">,</span> <span class="mi">500000</span><span class="p">),</span> <span class="p">(</span><span class="s2">"600"</span><span class="p">,</span> <span class="mi">800000</span><span class="p">),</span> <span class="p">(</span><span class="s2">"600"</span><span class="p">,</span> <span class="mi">900000</span><span class="p">)]</span>
+<span class="n">scenario_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">budget_text</span><span class="p">,</span> <span class="n">requested_coverage</span> <span class="ow">in</span> <span class="n">visitor_scenarios</span><span class="p">:</span>
+    <span class="n">visitor_matches</span> <span class="o">=</span> <span class="n">find_policies</span><span class="p">(</span><span class="n">budget_text</span><span class="p">,</span> <span class="n">minimum_coverage</span><span class="o">=</span><span class="n">requested_coverage</span><span class="p">)</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">policy</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">visitor_matches</span><span class="p">]</span>
+    <span class="n">scenario_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Budget PHP </span><span class="si">{</span><span class="n">budget_text</span><span class="si">}</span><span class="s2">; minimum benefit PHP </span><span class="si">{</span><span class="n">requested_coverage</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">visitor_matches</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"No supplied fictional policy meets both conditions."</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">scenario_names</span> <span class="o">==</span> <span class="p">[[</span><span class="s2">"Oak"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"River"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"Sky"</span><span class="p">],</span> <span class="p">[]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-10-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The first three searches meet exact boundaries and return Oak, River, and Sky respectively. The last has no match even though Sky meets the budget, because its coverage is below PHP 900,000. Explain both search conditions when showing results.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-10-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Handle-a-correction-and-a-quiz-retry">Handle a correction and a quiz retry<a class="anchor-link" href="#Handle-a-correction-and-a-quiz-retry">¶</a></h3><p>Predict what happens for a budget written with a comma, then a corrected numeric string. Also predict the quiz score after one wrong answer.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-10-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">for</span> <span class="n">attempted_budget</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"1,000"</span><span class="p">,</span> <span class="s2">"1000"</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">parsed_example</span> <span class="o">=</span> <span class="n">parse_budget</span><span class="p">(</span><span class="n">attempted_budget</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Accepted budget text </span><span class="si">{</span><span class="n">attempted_budget</span><span class="si">!r}</span><span class="s2">: PHP </span><span class="si">{</span><span class="n">parsed_example</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not read </span><span class="si">{</span><span class="n">attempted_budget</span><span class="si">!r}</span><span class="s2">: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">retry_score</span> <span class="o">=</span> <span class="n">grade_quiz</span><span class="p">([</span><span class="s2">" Premium "</span><span class="p">,</span> <span class="s2">"insured person"</span><span class="p">,</span> <span class="s2">" NO "</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Retry score:"</span><span class="p">,</span> <span class="n">retry_score</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">quiz</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">parse_budget</span><span class="p">(</span><span class="s2">"1000"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1000</span> <span class="ow">and</span> <span class="n">retry_score</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-10-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> float() does not accept the thousands separator in 1,000, so the visitor gets a clear error; 1000 succeeds. !r shows the text with quotes so spaces and punctuation are easier to inspect. The quiz trims spaces and ignores capitalization, but insured person is still the wrong role for that question.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-10-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>Should an empty search automatically raise the visitor's budget?</p>
+</li>
+<li><p>What would you explain before demonstrating this project?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>No. Report the result and let the visitor choose new fictional inputs. Silently changing inputs would answer a different question.</p>
+</li>
+<li><p>Describe the fictional data, payment assumptions, filters, and error messages. Explain that a numerical match does not determine eligibility or suitability.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-10-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>At the fair, Maya demonstrates code that handles mistakes kindly. Leo explains what the tool can calculate and what it cannot decide. They have moved from printing a message to building a small educational project.</p>

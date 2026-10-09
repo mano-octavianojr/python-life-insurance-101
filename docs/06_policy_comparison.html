@@ -127,6 +127,87 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-06-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-06-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Combine-budget-and-coverage-conditions">Combine budget and coverage conditions<a class="anchor-link" href="#Combine-budget-and-coverage-conditions">¶</a></h3><p>Predict which supplied policy meets both a PHP 400 monthly limit and at least PHP 500,000 coverage. and requires both conditions.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-06-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">combined_matches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">400</span> <span class="ow">and</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"coverage"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">500000</span><span class="p">:</span>
+        <span class="n">combined_matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">policy</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Both conditions:"</span><span class="p">,</span> <span class="n">combined_matches</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">combined_matches</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"River"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-06-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> River passes both checks. Oak meets the payment limit but falls below the coverage threshold; Sky has enough coverage but exceeds the payment limit. The comparisons include exact equality.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-06-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Show-an-empty-result-clearly">Show an empty result clearly<a class="anchor-link" href="#Show-an-empty-result-clearly">¶</a></h3><p>Predict the result for a PHP 200 monthly limit. An empty list is a valid search result.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-06-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">small_budget_matches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">policy</span> <span class="ow">in</span> <span class="n">policies</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">policy</span><span class="p">[</span><span class="s2">"monthly"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="n">small_budget_matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">policy</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
+<span class="k">if</span> <span class="n">small_budget_matches</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Matches:"</span><span class="p">,</span> <span class="n">small_budget_matches</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"No supplied fictional policy matches PHP 200/month."</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">small_budget_matches</span> <span class="o">==</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-06-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> No policy passes. An empty list is false in an if condition; a nonempty list is true. A clear empty-result message helps distinguish a successful search from a broken program.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-06-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>How would using or instead of and change the search?</p>
+</li>
+<li><p>Why is River a match rather than a recommendation?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>A policy could pass with only one condition satisfied. For these thresholds all three policies would pass at least one condition.</p>
+</li>
+<li><p>The code checks only supplied numerical fields. It omits eligibility, exclusions, renewal rules, and the visitor's wider circumstances.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-06-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>The club displays matching policies without declaring a winner. Maya explains why a price filter cannot decide suitability or eligibility.</p>

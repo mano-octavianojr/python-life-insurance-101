@@ -125,6 +125,85 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-04-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-04-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Inspect-the-last-day-before-the-end">Inspect the last day before the end<a class="anchor-link" href="#Inspect-the-last-day-before-the-end">¶</a></h3><p>Under the classroom rule start &lt;= candidate &lt; end, predict whether December 31, 2035 is included.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-04-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">last_day_example</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2035</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">last_day_inside</span> <span class="o">=</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">last_day_example</span> <span class="o">&lt;</span> <span class="n">end</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Last day before end is inside:"</span><span class="p">,</span> <span class="n">last_day_inside</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Exact end is inside:"</span><span class="p">,</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">last_day_inside</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="p">(</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-04-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The day before the end is included; the exact end is excluded. A chained comparison requires both conditions to be true. These are date checks under our convention, not claims decisions.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-04-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Check-a-fictional-renewal-window-separately">Check a fictional renewal window separately<a class="anchor-link" href="#Check-a-fictional-renewal-window-separately">¶</a></h3><p>A second example window begins at the first window's end. Predict which window contains January 1, 2036. Assume the second window is supplied; the code does not establish renewal.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-04-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">renewal_start</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2036</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">renewal_end</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2046</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">renewal_candidate</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2036</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">in_original_window</span> <span class="o">=</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">renewal_candidate</span> <span class="o">&lt;</span> <span class="n">end</span>
+<span class="n">in_renewal_window</span> <span class="o">=</span> <span class="n">renewal_start</span> <span class="o">&lt;=</span> <span class="n">renewal_candidate</span> <span class="o">&lt;</span> <span class="n">renewal_end</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Original window:"</span><span class="p">,</span> <span class="n">in_original_window</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Supplied renewal window:"</span><span class="p">,</span> <span class="n">in_renewal_window</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">in_original_window</span><span class="p">,</span> <span class="n">in_renewal_window</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-04-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The date is outside the original window and inside the supplied second window. Including starts and excluding ends avoids counting the shared boundary in both adjacent windows.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-04-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>What does replacing &lt; end with &lt;= end change?</p>
+</li>
+<li><p>What does this program need to know before checking a renewed period?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>It includes the exact end date. That is a different boundary rule and would require different expected results.</p>
+</li>
+<li><p>It needs the actual window being modeled. A date calculation alone cannot establish that renewal occurred or that other coverage conditions are satisfied.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-04-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Leo correctly excludes the end date under the example convention. Maya explains that a calendar check cannot establish whether a real claim is payable.</p>

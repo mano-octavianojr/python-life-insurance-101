@@ -130,6 +130,85 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-07-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-07-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Use-returned-values-in-another-calculation">Use returned values in another calculation<a class="anchor-link" href="#Use-returned-values-in-another-calculation">¶</a></h3><p>Predict the annual totals for PHP 250 and PHP 350 per month, then their difference.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-07-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">oak_annual_example</span> <span class="o">=</span> <span class="n">annual_premium</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">river_annual_example</span> <span class="o">=</span> <span class="n">annual_premium</span><span class="p">(</span><span class="mi">350</span><span class="p">)</span>
+<span class="n">annual_difference_example</span> <span class="o">=</span> <span class="n">river_annual_example</span> <span class="o">-</span> <span class="n">oak_annual_example</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Annual totals:"</span><span class="p">,</span> <span class="n">oak_annual_example</span><span class="p">,</span> <span class="n">river_annual_example</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Annual difference:"</span><span class="p">,</span> <span class="n">annual_difference_example</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">annual_difference_example</span> <span class="o">==</span> <span class="mi">1200</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-07-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The functions return 3,000 and 4,200, so the difference is 1,200. return makes a value available to the caller; printing a value alone would not let this subtraction use it.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-07-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Compare-resources-while-holding-need-fixed">Compare resources while holding need fixed<a class="anchor-link" href="#Compare-resources-while-holding-need-fixed">¶</a></h3><p>Assume all resources are available for the same fictional need and counted once. Predict how the gap changes as resources rise.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-07-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">scenario_need</span> <span class="o">=</span> <span class="mi">600000</span>
+<span class="k">for</span> <span class="n">scenario_resources</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100000</span><span class="p">,</span> <span class="mi">400000</span><span class="p">,</span> <span class="mi">700000</span><span class="p">]:</span>
+    <span class="n">scenario_gap</span> <span class="o">=</span> <span class="n">coverage_gap</span><span class="p">(</span><span class="n">scenario_need</span><span class="p">,</span> <span class="n">scenario_resources</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Resources PHP </span><span class="si">{</span><span class="n">scenario_resources</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">: gap PHP </span><span class="si">{</span><span class="n">scenario_gap</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">coverage_gap</span><span class="p">(</span><span class="mi">600000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span> <span class="o">==</span> <span class="mi">500000</span>
+<span class="k">assert</span> <span class="n">coverage_gap</span><span class="p">(</span><span class="mi">600000</span><span class="p">,</span> <span class="mi">400000</span><span class="p">)</span> <span class="o">==</span> <span class="mi">200000</span>
+<span class="k">assert</span> <span class="n">coverage_gap</span><span class="p">(</span><span class="mi">600000</span><span class="p">,</span> <span class="mi">700000</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-07-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The gaps are PHP 500,000, PHP 200,000, and zero. max() stops the last result becoming negative. Zero says the supplied resources meet the supplied need in this model, not that every financial risk is resolved.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-07-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>Why keep the calculation inside a function?</p>
+</li>
+<li><p>If we count the same savings twice, how does that affect the gap?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>One definition can serve several inputs, reducing repeated formulas and making the rule easier to check or change.</p>
+</li>
+<li><p>Resources are overstated and the estimated gap is understated. A correct formula cannot repair misleading inputs.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-07-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya has reusable tools and knows why a negative gap is replaced with zero. Leo adds a note listing what the classroom estimate leaves out.</p>

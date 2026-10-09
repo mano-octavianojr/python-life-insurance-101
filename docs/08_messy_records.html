@@ -137,6 +137,89 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-08-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-08-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Keep-a-reason-for-each-record-flag">Keep a reason for each record flag<a class="anchor-link" href="#Keep-a-reason-for-each-record-flag">¶</a></h3><p>Predict whether a row can have more than one problem. Create separate Boolean columns so reviewers can see why a row was flagged.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-08-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">reason_flags</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"missing_name"</span><span class="p">:</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"missing_or_nonnumeric_premium"</span><span class="p">:</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span>
+    <span class="s2">"nonpositive_premium"</span><span class="p">:</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"monthly_premium"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="n">review_details</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">clean</span><span class="p">[[</span><span class="s2">"policy_id"</span><span class="p">]],</span> <span class="n">reason_flags</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">review_details</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">flagged_by_reason</span> <span class="o">=</span> <span class="n">reason_flags</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">flagged_by_reason</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span><span class="o">~</span><span class="n">valid</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-08-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> .isna() identifies missing numeric values after conversion, including invalid numeric text. pd.concat(..., axis=1) puts columns side by side; .any(axis=1) is true if any flag in a row is true. These reasons reproduce the existing rule without changing records.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-08-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Distinguish-zero,-missing,-and-text">Distinguish zero, missing, and text<a class="anchor-link" href="#Distinguish-zero,-missing,-and-text">¶</a></h3><p>Predict which values convert to numbers and which pass the strictly positive classroom rule.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-08-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">premium_examples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"0"</span><span class="p">,</span> <span class="s2">"450"</span><span class="p">,</span> <span class="s2">"unknown"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"-20"</span><span class="p">])</span>
+<span class="n">converted_examples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">premium_examples</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+<span class="n">positive_examples</span> <span class="o">=</span> <span class="n">converted_examples</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">converted_examples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"original"</span><span class="p">:</span> <span class="n">premium_examples</span><span class="p">,</span>
+                    <span class="s2">"numeric"</span><span class="p">:</span> <span class="n">converted_examples</span><span class="p">,</span>
+                    <span class="s2">"passes_positive_rule"</span><span class="p">:</span> <span class="n">positive_examples</span><span class="p">})</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">positive_examples</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">converted_examples</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-08-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> Zero and -20 are known numbers that fail this rule. unknown and None become missing numeric values. Only 450 passes. Preserve the original text so missing and unparseable entries can be investigated separately.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-08-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>Why can the total number of flags exceed the number of flagged rows?</p>
+</li>
+<li><p>Does passing the name-and-premium rule verify the whole record?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>One record can have several problems. Count rows with any flag for a row count; summing all flags counts problems.</p>
+</li>
+<li><p>No. It does not check policy status, duplicate identifiers, or whether the supplied facts match an authoritative record.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-08-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya preserves the original file and separates four records for review. Leo explains that valid-looking numbers do not establish that a real policy is active.</p>

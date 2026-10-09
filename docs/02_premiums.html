@@ -120,6 +120,84 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-02-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-02-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Compare-a-six-month-payment-schedule">Compare a six-month payment schedule<a class="anchor-link" href="#Compare-a-six-month-payment-schedule">¶</a></h3><p>Assume equal coverage for one year and all payments made. Predict whether two payments of PHP 2,100 cost more than twelve payments of PHP 375.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-02-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">six_month_payment</span> <span class="o">=</span> <span class="mi">2100</span>
+<span class="n">six_month_total</span> <span class="o">=</span> <span class="n">six_month_payment</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">comparison_monthly_total</span> <span class="o">=</span> <span class="mi">375</span> <span class="o">*</span> <span class="mi">12</span>
+<span class="n">schedule_difference</span> <span class="o">=</span> <span class="n">comparison_monthly_total</span> <span class="o">-</span> <span class="n">six_month_total</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Six-month schedule: PHP </span><span class="si">{</span><span class="n">six_month_total</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Monthly schedule: PHP </span><span class="si">{</span><span class="n">comparison_monthly_total</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Difference: PHP </span><span class="si">{</span><span class="n">schedule_difference</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">schedule_difference</span> <span class="o">==</span> <span class="mi">300</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-02-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The totals are PHP 4,200 and PHP 4,500, a PHP 300 difference. Multiply by the number of payments, not by the number of months between payments.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-02-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Estimate-a-monthly-set-aside-for-an-annual-payment">Estimate a monthly set-aside for an annual payment<a class="anchor-link" href="#Estimate-a-monthly-set-aside-for-an-annual-payment">¶</a></h3><p>A fictional annual payment is PHP 4,800. Predict how much would need to be set aside each month over twelve months.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-02-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">annual_payment_example</span> <span class="o">=</span> <span class="mi">4800</span>
+<span class="n">monthly_set_aside</span> <span class="o">=</span> <span class="n">annual_payment_example</span> <span class="o">/</span> <span class="mi">12</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Monthly set-aside: PHP </span><span class="si">{</span><span class="n">monthly_set_aside</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">monthly_set_aside</span> <span class="o">==</span> <span class="mi">400</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-02-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> Dividing gives PHP 400 per month. :,.2f formats two decimal places. Setting money aside is a budget calculation, not an insurer-approved payment schedule; it does not make the annual payment due later.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-02-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>Why might a lower annual total still be difficult to pay?</p>
+</li>
+<li><p>If twelve monthly payments equal the annual payment, what can we conclude?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>The full amount may be due upfront. Total cost and the timing of available money answer different questions.</p>
+</li>
+<li><p>The supplied totals are equal under the stated assumptions. We have learned nothing about exclusions, eligibility, or benefit differences.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-02-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya finds a ₱200 difference in both examples. Leo reminds her that a lower total alone does not explain a policy’s benefits or whether a family can pay upfront.</p>

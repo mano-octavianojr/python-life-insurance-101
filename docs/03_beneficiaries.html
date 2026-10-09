@@ -124,6 +124,86 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-03-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-03-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Split-a-benefit-equally-three-ways">Split a benefit equally three ways<a class="anchor-link" href="#Split-a-benefit-equally-three-ways">¶</a></h3><p>Predict each amount for three fictional beneficiaries sharing a PHP 900,000 approved benefit. Here we calculate an equal split directly instead of rounding 100 / 3 to a percentage.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-03-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">equal_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ana"</span><span class="p">,</span> <span class="s2">"Ben"</span><span class="p">,</span> <span class="s2">"Cora"</span><span class="p">]</span>
+<span class="n">equal_benefit</span> <span class="o">=</span> <span class="mi">900000</span>
+<span class="n">equal_amount</span> <span class="o">=</span> <span class="n">equal_benefit</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">equal_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"PHP </span><span class="si">{</span><span class="n">equal_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">equal_names</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"PHP </span><span class="si">{</span><span class="n">equal_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">equal_names</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"PHP </span><span class="si">{</span><span class="n">equal_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">equal_amount</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">==</span> <span class="n">equal_benefit</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-03-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> Each receives PHP 300,000 in this classroom calculation. Indexes 0, 1, and 2 retrieve the three names. Calculating an equal split directly avoids introducing rounded percentages that do not total exactly 100.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-03-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Spot-an-incomplete-allocation">Spot an incomplete allocation<a class="anchor-link" href="#Spot-an-incomplete-allocation">¶</a></h3><p>Maya reads proposed shares of 45% and 45%. Predict the total shares and the amount still unallocated.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-03-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">proposed</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Dan"</span><span class="p">,</span> <span class="s2">"share"</span><span class="p">:</span> <span class="mi">45</span><span class="p">},</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Eva"</span><span class="p">,</span> <span class="s2">"share"</span><span class="p">:</span> <span class="mi">45</span><span class="p">}]</span>
+<span class="n">proposed_share_total</span> <span class="o">=</span> <span class="n">proposed</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span> <span class="o">+</span> <span class="n">proposed</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"share"</span><span class="p">]</span>
+<span class="n">unallocated_share</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">proposed_share_total</span>
+<span class="n">unallocated_amount</span> <span class="o">=</span> <span class="mi">600000</span> <span class="o">*</span> <span class="n">unallocated_share</span> <span class="o">/</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Proposed shares: </span><span class="si">{</span><span class="n">proposed_share_total</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unallocated in this example: PHP </span><span class="si">{</span><span class="n">unallocated_amount</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">proposed_share_total</span> <span class="o">==</span> <span class="mi">90</span> <span class="ow">and</span> <span class="n">unallocated_amount</span> <span class="o">==</span> <span class="mi">60000</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-03-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The shares total 90%, leaving 10%, or PHP 60,000, unallocated in the arithmetic model. The program reveals an issue; it does not choose a recipient or determine what an insurer would do.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-03-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>Why does adding payout amounts help check this example?</p>
+</li>
+<li><p>Should the program silently change 45% and 45% into 50% and 50%?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>For a complete allocation in this model, the amounts should add to the supplied benefit and shares should total 100%. Individual shares also need to be in the allowed range.</p>
+</li>
+<li><p>No. That would invent instructions. Report the discrepancy and seek corrected fictional inputs rather than choosing an allocation.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-03-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya can explain how this fictional split works. She understands that naming recipients matters, and that an actual payout follows policy and legal rules.</p>

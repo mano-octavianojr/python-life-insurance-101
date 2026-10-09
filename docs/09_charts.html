@@ -127,6 +127,90 @@
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-09-01"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-examples">More examples<a class="anchor-link" href="#More-examples">¶</a></h2><p>Spend another 15–20 minutes on these optional examples. Run the earlier demo first, predict each result, then compare your prediction with the explanation. Use only fictional inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-09-02"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Read-selected-points-before-interpreting-the-chart">Read selected points before interpreting the chart<a class="anchor-link" href="#Read-selected-points-before-interpreting-the-chart">¶</a></h3><p>Predict the totals and their difference at years 0, 2, and 10.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-09-03">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="k">for</span> <span class="n">selected_year</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]:</span>
+    <span class="n">selected_difference</span> <span class="o">=</span> <span class="n">river_paid</span><span class="p">[</span><span class="n">selected_year</span><span class="p">]</span> <span class="o">-</span> <span class="n">oak_paid</span><span class="p">[</span><span class="n">selected_year</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Year </span><span class="si">{</span><span class="n">selected_year</span><span class="si">}</span><span class="s2">: Oak PHP </span><span class="si">{</span><span class="n">oak_paid</span><span class="p">[</span><span class="n">selected_year</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">, "</span>
+          <span class="sa">f</span><span class="s2">"River PHP </span><span class="si">{</span><span class="n">river_paid</span><span class="p">[</span><span class="n">selected_year</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">, difference PHP </span><span class="si">{</span><span class="n">selected_difference</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">river_paid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">oak_paid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2400</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-09-04"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The differences are PHP 0, PHP 2,400, and PHP 12,000. They grow by PHP 1,200 per year because the fixed monthly payments differ by PHP 100. The index equals the year only because this list begins at year zero and advances one year at a time.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-09-05"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Plot-annual-payments-instead-of-cumulative-payments">Plot annual payments instead of cumulative payments<a class="anchor-link" href="#Plot-annual-payments-instead-of-cumulative-payments">¶</a></h3><p>Predict whether the annual-payment lines slope upward. These are the same fixed prices but a different quantity.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=extension-09-06">
+<div class="input">
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-python"><pre><span></span><span class="n">annual_years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="n">annual_oak</span> <span class="o">=</span> <span class="p">[</span><span class="mi">250</span> <span class="o">*</span> <span class="mi">12</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">annual_years</span><span class="p">]</span>
+<span class="n">annual_river</span> <span class="o">=</span> <span class="p">[</span><span class="mi">350</span> <span class="o">*</span> <span class="mi">12</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">annual_years</span><span class="p">]</span>
+<span class="n">annual_fig</span><span class="p">,</span> <span class="n">annual_ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">annual_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">annual_years</span><span class="p">,</span> <span class="n">annual_oak</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Oak"</span><span class="p">)</span>
+<span class="n">annual_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">annual_years</span><span class="p">,</span> <span class="n">annual_river</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"s"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"River"</span><span class="p">)</span>
+<span class="n">annual_ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Fictional term policies: payments each year"</span><span class="p">,</span>
+              <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Payment year"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Annual premiums paid (PHP)"</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
+<span class="n">annual_ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">annual_ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">annual_fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">annual_oak</span> <span class="o">==</span> <span class="p">[</span><span class="mi">3000</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">annual_river</span> <span class="o">==</span> <span class="p">[</span><span class="mi">4200</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-09-07"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>What happened and why:</strong> The lines are horizontal at PHP 3,000 and PHP 4,200. Annual payments stay fixed while cumulative payments keep adding up. Starting the vertical scale at zero gives context to the payment amounts; always read the axis label before interpreting a line.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=extension-09-08"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discussion">Discussion<a class="anchor-link" href="#Discussion">¶</a></h2><p>Talk with a partner or write your reasoning in a Markdown cell before reading the suggested answers.</p>
+<ol>
+<li><p>How can both a horizontal and a rising line describe the same policy?</p>
+</li>
+<li><p>Would extending the line past the term prove continued coverage?</p>
+</li>
+</ol>
+<h3 id="Suggested-discussion-answers">Suggested discussion answers<a class="anchor-link" href="#Suggested-discussion-answers">¶</a></h3><ol>
+<li><p>One chart shows each year's payment; the other shows the sum paid so far. The measured quantity differs.</p>
+</li>
+<li><p>No. The code can draw payments at any year, but the model must respect its stated term and assumptions. A plotted line cannot create renewal or coverage.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=lesson-09-cell-14"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Story-ending">Story ending<a class="anchor-link" href="#Story-ending">¶</a></h2><p>Maya labels the chart as payments, not savings or benefits. Leo can explain both the numerical pattern and the limits of the graph.</p>
